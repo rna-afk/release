@@ -1,0 +1,10 @@
+{
+	"path": "upi/install/azurestack/upi-install-azurestack-ref.yaml",
+	"owners": {
+		"approvers": [
+			"abhinavdahiya",
+			"jstuever",
+			"patrickdillon"
+		]
+	}
+}
