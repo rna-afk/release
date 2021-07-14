@@ -2075,7 +2075,13 @@ objects:
             --parameters privateDNSZoneName="${CLUSTER_NAME}.${base_domain}" \
             --parameters baseName="$INFRA_ID"
 
+          sleep 5m
+
           PUBLIC_IP=$(az network public-ip list -g $RESOURCE_GROUP --query "[?name=='${INFRA_ID}-master-pip'] | [0].ipAddress" -o tsv)
+          CONTENTS=$(az network public-ip list -g $RESOURCE_GROUP)
+          echo $CONTENTS
+          echo $RESOURCE_GROUP
+          echo $PUBLIC_IP
           echo "Creating 'api' record in public zone for IP ${PUBLIC_IP}"
           az network dns record-set a add-record -g $BASE_DOMAIN_RESOURCE_GROUP -z ${base_domain} -n api.${CLUSTER_NAME} -a $PUBLIC_IP --ttl 60
 
