@@ -77,6 +77,7 @@ fi
 case "${CLUSTER_TYPE}" in
 aws|aws-arm64) export AWS_SHARED_CREDENTIALS_FILE=${CLUSTER_PROFILE_DIR}/.awscred;;
 azure4) export AZURE_AUTH_LOCATION=${CLUSTER_PROFILE_DIR}/osServicePrincipal.json;;
+azurestack) export AZURE_AUTH_LOCATION=${SHARED_DIR}/osServicePrincipal.json;;
 gcp) export GOOGLE_CLOUD_KEYFILE_JSON=${CLUSTER_PROFILE_DIR}/gce.json;;
 kubevirt) export KUBEVIRT_KUBECONFIG=${HOME}/.kube/config;;
 vsphere) ;;
@@ -90,6 +91,21 @@ esac
 dir=/tmp/installer
 mkdir "${dir}/"
 cp "${SHARED_DIR}/install-config.yaml" "${dir}/"
+
+if [[ "${CLUSTER_TYPE}" == "azurestack" ]]; then
+  # Login is required to access Azure Stack Hub and for creation of resources.
+  TENANT_ID=$(cat "${SHARED_DIR}/osServicePrincipal.json" | python -c "import sys, json; print(json.load(sys.stdin)['tenantId'])")
+  AAD_CLIENT_SECRET=$(cat "${SHARED_DIR}/osServicePrincipal.json" | python -c "import sys, json; print(json.load(sys.stdin)['clientSecret'])")
+  APP_ID=$(cat "${SHARED_DIR}/osServicePrincipal.json" | python -c "import sys, json; print(json.load(sys.stdin)['clientId'])")
+
+  az cloud register \
+    -n PPE \
+    --endpoint-resource-manager "https://management.ppe3.stackpoc.com" \
+    --suffix-storage-endpoint "ppe3.stackpoc.com" 
+  az cloud set -n PPE
+  az cloud update --profile 2019-03-01-hybrid
+  az login --service-principal -u $APP_ID -p $AAD_CLIENT_SECRET --tenant $TENANT_ID > /dev/null
+fi
 
 # move private key to ~/.ssh/ so that installer can use it to gather logs on
 # bootstrap failure
