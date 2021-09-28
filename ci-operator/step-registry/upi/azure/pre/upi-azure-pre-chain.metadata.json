@@ -1,0 +1,13 @@
+{
+	"path": "upi/azure/pre/upi-azure-pre-chain.yaml",
+	"owners": {
+		"approvers": [
+			"staebler",
+			"rna-afk",
+			"patrickdillon",
+			"e-tienne",
+			"jhixson74",
+			"jstuever"
+		]
+	}
+}

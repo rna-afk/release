@@ -1,0 +1,13 @@
+{
+	"path": "upi/azure/upi-azure-workflow.yaml",
+	"owners": {
+		"approvers": [
+			"staebler",
+			"rna-afk",
+			"patrickdillon",
+			"e-tienne",
+			"jhixson74",
+			"jstuever"
+		]
+	}
+}
