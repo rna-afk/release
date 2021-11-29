@@ -1,0 +1,11 @@
+{
+	"path": "upi/metal/upi-metal-workflow.yaml",
+	"owners": {
+		"approvers": [
+			"patrickdillon",
+			"jhixson74",
+			"jstuever",
+			"rna-afk"
+		]
+	}
+}

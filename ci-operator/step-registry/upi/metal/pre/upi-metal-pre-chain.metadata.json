@@ -1,0 +1,11 @@
+{
+	"path": "upi/metal/pre/upi-metal-pre-chain.yaml",
+	"owners": {
+		"approvers": [
+			"patrickdillon",
+			"jhixson74",
+			"jstuever",
+			"rna-afk"
+		]
+	}
+}

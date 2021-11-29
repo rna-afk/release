@@ -1,0 +1,11 @@
+{
+	"path": "upi/install/metal/upi-install-metal-ref.yaml",
+	"owners": {
+		"approvers": [
+			"patrickdillon",
+			"jhixson74",
+			"jstuever",
+			"rna-afk"
+		]
+	}
+}
