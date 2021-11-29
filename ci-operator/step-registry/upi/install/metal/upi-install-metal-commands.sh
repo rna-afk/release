@@ -285,8 +285,12 @@ bootstrap_ign_file = "${SHARED_DIR}/installer/bootstrap.ign"
 cluster_domain = "${CLUSTER_NAME}.${BASE_DOMAIN}"
 master_count = "3"
 master_ign_file = "${SHARED_DIR}/installer/master.ign"
-matchbox_client_cert = "${MATCHBOX_CLIENT_CERT}"
-matchbox_client_key = "${MATCHBOX_CLIENT_KEY}"
+matchbox_client_cert = <<EOT
+${MATCHBOX_CLIENT_CERT}
+EOT
+matchbox_client_key = <<EOT
+${MATCHBOX_CLIENT_KEY}"
+EOT
 matchbox_http_endpoint = "http://http-matchbox.apps.build01.ci.devcluster.openshift.com"
 matchbox_rpc_endpoint = "a3558a943132041b48b20a67aa291d99-23796056.us-east-1.elb.amazonaws.com:8081"
 matchbox_trusted_ca_cert = "${SHARED_DIR}/installer/matchbox-trusted-bundle.crt"
