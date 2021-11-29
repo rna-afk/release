@@ -1,0 +1,11 @@
+{
+	"path": "openshift/e2e/metal/openshift-e2e-metal-workflow.yaml",
+	"owners": {
+		"approvers": [
+			"rna-afk",
+			"patrickdillon",
+			"jhixson74",
+			"jstuever"
+		]
+	}
+}
