@@ -5,8 +5,7 @@ set -o errexit
 set -o pipefail
 
 CONFIG="${SHARED_DIR}/install-config.yaml"
-REGION="${LEASED_RESOURCE}"
-echo "Azure region: ${REGION}"
+echo "Azure region: ${LEASED_RESOURCE}"
 
 workers=3
 if [[ "${SIZE_VARIANT}" == "compact" ]]; then
@@ -44,7 +43,7 @@ credentialsMode: Manual
 platform:
   azure:
     baseDomainResourceGroupName: openshiftInstallerRG
-    region: ${REGION}
+    region: ${LEASED_RESOURCE}
     cloudName: AzureStackCloud
     armEndpoint: ${ENDPOINT}
 controlPlane:
@@ -56,3 +55,17 @@ EOF
 
 echo "${AZURESTACK_ENDPOINT}" >> ${SHARED_DIR}/AZURESTACK_ENDPOINT
 echo "${SUFFIX_ENDPOINT}" >> ${SHARED_DIR}/SUFFIX_ENDPOINT
+APP_ID=$(jq -r .clientId "${SHARED_DIR}/osServicePrincipal.json")
+AAD_CLIENT_SECRET=$(jq -r .clientSecret ${SHARED_DIR}/osServicePrincipal.json)
+TENANT_ID=$(jq -r .tenantId "${SHARED_DIR}/osServicePrincipal.json")
+cat >> "${SHARED_DIR}/azurestack-login-script.sh" << EOF
+az cloud register \
+    -n ${LEASED_RESOURCE} \
+    --endpoint-resource-manager "${AZURESTACK_ENDPOINT}" \
+    --suffix-storage-endpoint "${SUFFIX_ENDPOINT}"
+az cloud set -n ${LEASED_RESOURCE}
+az cloud update --profile 2019-03-01-hybrid
+az login --service-principal -u "$APP_ID" -p "$AAD_CLIENT_SECRET" --tenant "$TENANT_ID" > /dev/null
+EOF
+
+chmod +x "${SHARED_DIR}/azurestack-login-script.sh"
