@@ -13,7 +13,11 @@ fi
 export PATH="$PATH:/usr/local/bin"
 
 CLUSTER_NAME=${NAMESPACE}-${JOB_NAME_HASH}
-RESOURCE_GROUP=${CLUSTER_NAME}
+if [[ $RESOURCE_GROUP == *"ipi"* ]]; then
+  RESOURCE_GROUP=${CLUSTER_NAME}
+else
+  RESOURCE_GROUP=$(python3 -c 'import yaml;data = yaml.full_load(open("manifests/cluster-infrastructure-02-config.yml"));print(data["status"]["platformStatus"]["azure"]["resourceGroupName"])')
+fi
 AZURE_AUTH_LOCATION="${SHARED_DIR}/osServicePrincipal.json"
 APP_ID=$(jq -r .clientId "${AZURE_AUTH_LOCATION}")
 TENANT_ID=$(jq -r .tenantId "${AZURE_AUTH_LOCATION}")
@@ -56,8 +60,8 @@ do
       continue
   fi
 
-  filename=manifest_${SECRET_NAMESPACE}_${SECRET_NAME}_secret.yml
-  cat >> "${SHARED_DIR}/${filename}" << EOF
+  filename=manifest_${SECRET_NAMESPACE}_secret.yml
+  cat >> "${SHARED_DIR}/requests/${filename}" << EOF
 apiVersion: v1
 kind: Secret
 metadata:

@@ -10,5 +10,8 @@ ref:
   - namespace: test-credentials
     name: azurestack-cluster-secrets
     mount_path: /var/run/azurestack-cluster-secrets
+  env:
+  - name: INSTALLATION_TYPE
+    default: "ipi"
   documentation: |-
     The IPI ASH configure credentials step creates a resource group for the cluster installation and generates manual credentials for the cluster and that resource group.
