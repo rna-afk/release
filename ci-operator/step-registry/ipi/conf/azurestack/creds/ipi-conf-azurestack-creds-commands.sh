@@ -37,6 +37,7 @@ oc adm release extract --credentials-requests --cloud=azure --to=/tmp/credential
 
 ls /tmp/credentials-request
 files=$(ls /tmp/credentials-request)
+mkdir ${SHARED_DIR}/requests
 for f in $files
 do
   SECRET_NAME=$(yq -r .spec.secretRef.name "/tmp/credentials-request/${f}")
@@ -57,8 +58,8 @@ do
       continue
   fi
 
-  filename=manifest_${SECRET_NAMESPACE}_${SECRET_NAME}_secret.yml
-  cat >> "${SHARED_DIR}/${filename}" << EOF
+  filename=manifest_${SECRET_NAMESPACE}_secret.yml
+  cat >> "${SHARED_DIR}/requests/${filename}" << EOF
 apiVersion: v1
 kind: Secret
 metadata:
