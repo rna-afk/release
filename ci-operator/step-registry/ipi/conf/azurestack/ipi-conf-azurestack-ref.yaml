@@ -24,6 +24,8 @@ ref:
 
       These sizes are roughly consistent across all cloud providers, but we may not be able to instantiate some sizes
       in some regions or accounts due to quota issues.
+  - name: AZURESTACK_REGION
+    default: 'ppe3'
   - name: AZURESTACK_ENDPOINT
     default: 'https://management.ppe3.stackpoc.com'
     documentation: |-
@@ -32,5 +34,7 @@ ref:
     default: "ppe3.stackpoc.com"
     documentation: |-
       The endpoint suffix for storage accounts.
+  - name: INSTALLATION_TYPE
+    default: "ipi"
   documentation: |-
     The IPI ASH configure step generates the Azure Stack Hub specific install-config.yaml contents based on the cluster profile and optional input files.
