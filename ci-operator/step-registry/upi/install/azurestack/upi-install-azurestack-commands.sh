@@ -131,14 +131,14 @@ export OPENSHIFT_INSTALL_INVOKER="openshift-internal-ci/${JOB_NAME_SAFE}/${BUILD
 date "+%F %X" > "${SHARED_DIR}/CLUSTER_INSTALL_START_TIME"
 RESOURCE_GROUP=$(cat "${SHARED_DIR}/RESOURCE_GROUP_NAME")
 
-az group create --name "$RESOURCE_GROUP" --location "$AZURESTACK_REGION"
+az group create --name "$RESOURCE_GROUP" --location "$LEASED_RESOURCE"
 
 KUBECONFIG="${dir}/auth/kubeconfig"
 export KUBECONFIG
 
 ACCOUNT_NAME=$(echo ${CLUSTER_NAME}sa | tr -cd '[:alnum:]')
 echo "Creating storage account"
-az storage account create -g "$RESOURCE_GROUP" --location "$AZURESTACK_REGION" --name "$ACCOUNT_NAME" --kind Storage --sku Standard_LRS
+az storage account create -g "$RESOURCE_GROUP" --location "$LEASED_RESOURCE" --name "$ACCOUNT_NAME" --kind Storage --sku Standard_LRS
 ACCOUNT_KEY=$(az storage account keys list -g "$RESOURCE_GROUP" --account-name "$ACCOUNT_NAME" --query "[0].value" -o tsv)
 
 az storage container create --name files --account-name "${ACCOUNT_NAME}" --public-access blob --account-key "$ACCOUNT_KEY"
