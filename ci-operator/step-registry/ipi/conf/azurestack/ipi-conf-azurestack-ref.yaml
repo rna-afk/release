@@ -25,12 +25,17 @@ ref:
       These sizes are roughly consistent across all cloud providers, but we may not be able to instantiate some sizes
       in some regions or accounts due to quota issues.
   - name: AZURESTACK_ENDPOINT
-    default: 'https://management.ppe3.stackpoc.com'
+    default: 'https://management.mtcazs.wwtatc.com'
     documentation: |-
       The Azure Stack Hub Endpoint to connect to.
   - name: SUFFIX_ENDPOINT
-    default: "ppe3.stackpoc.com"
+    default: "mtcazs.wwtatc.com"
     documentation: |-
       The endpoint suffix for storage accounts.
+  - name: CLUSTER_OS_IMAGE
+    default: "https://vhdsa.blob.mtcazs.wwtatc.com/vhd/rhcos-410.84.202112040202-0-azurestack.x86_64.vhd"
+    documentation: |-
+      on-prem platform, override the default OS image provided in rhcos.json for cluster nodes
+      Azure stack hub platform, the url of a storage blob in the Azure Stack environment containing an RHCOS VHD
   documentation: |-
     The IPI ASH configure step generates the Azure Stack Hub specific install-config.yaml contents based on the cluster profile and optional input files.
