@@ -1536,7 +1536,7 @@ presubmits:
           secretName: result-aggregator
     trigger: (?m)^/test( | .* )e2e-azure-ovn,?($|\s.*)
   - agent: kubernetes
-    always_run: false
+    always_run: true
     branches:
     - ^master$
     - ^master-
@@ -1766,14 +1766,15 @@ presubmits:
     branches:
     - ^master$
     - ^master-
-    cluster: build02
+    cluster: build01
     context: ci/prow/e2e-azurestack
     decorate: true
     decoration_config:
       timeout: 6h0m0s
     labels:
       ci-operator.openshift.io/cloud: azurestack
-      ci-operator.openshift.io/cloud-cluster-profile: azurestack
+      ci-operator.openshift.io/cloud-cluster-profile: azurestack-qe
+      ci-operator.openshift.io/cluster: build01
       ci.openshift.io/generator: prowgen
       pj-rehearse.openshift.io/can-be-rehearsed: "true"
     name: pull-ci-openshift-installer-master-e2e-azurestack
@@ -1829,7 +1830,7 @@ presubmits:
           secretName: ci-pull-credentials
       - name: cluster-profile
         secret:
-          secretName: cluster-secrets-azurestack
+          secretName: cluster-secrets-azurestack-qe
       - name: pull-secret
         secret:
           secretName: registry-pull-credentials
@@ -1842,14 +1843,15 @@ presubmits:
     branches:
     - ^master$
     - ^master-
-    cluster: build02
+    cluster: build01
     context: ci/prow/e2e-azurestack-upi
     decorate: true
     decoration_config:
       timeout: 6h0m0s
     labels:
       ci-operator.openshift.io/cloud: azurestack
-      ci-operator.openshift.io/cloud-cluster-profile: azurestack
+      ci-operator.openshift.io/cloud-cluster-profile: azurestack-qe
+      ci-operator.openshift.io/cluster: build01
       ci.openshift.io/generator: prowgen
       pj-rehearse.openshift.io/can-be-rehearsed: "true"
     name: pull-ci-openshift-installer-master-e2e-azurestack-upi
@@ -1905,7 +1907,7 @@ presubmits:
           secretName: ci-pull-credentials
       - name: cluster-profile
         secret:
-          secretName: cluster-secrets-azurestack
+          secretName: cluster-secrets-azurestack-qe
       - name: pull-secret
         secret:
           secretName: registry-pull-credentials
@@ -3925,7 +3927,7 @@ presubmits:
           secretName: result-aggregator
     trigger: (?m)^/test( | .* )e2e-vsphere-ovn,?($|\s.*)
   - agent: kubernetes
-    always_run: false
+    always_run: true
     branches:
     - ^master$
     - ^master-
@@ -4371,7 +4373,7 @@ presubmits:
           secretName: result-aggregator
     trigger: (?m)^/test( | .* )govet,?($|\s.*)
   - agent: kubernetes
-    always_run: false
+    always_run: true
     branches:
     - ^master$
     - ^master-
@@ -4383,7 +4385,6 @@ presubmits:
       pj-rehearse.openshift.io/can-be-rehearsed: "true"
     name: pull-ci-openshift-installer-master-images
     rerun_command: /test images
-    skip_if_only_changed: (^docs/)|((^|/)OWNERS(_ALIASES)?$)|((^|/)[A-Z]+\.md$)
     spec:
       containers:
       - args:
@@ -4496,7 +4497,7 @@ presubmits:
           secretName: result-aggregator
     trigger: (?m)^/test( | .* )okd-e2e-aws-ovn,?($|\s.*)
   - agent: kubernetes
-    always_run: false
+    always_run: true
     branches:
     - ^master$
     - ^master-
@@ -4512,7 +4513,6 @@ presubmits:
     name: pull-ci-openshift-installer-master-okd-e2e-aws-ovn-upgrade
     optional: true
     rerun_command: /test okd-e2e-aws-ovn-upgrade
-    skip_if_only_changed: (^(docs|upi|hack)/)|((^|/)OWNERS(_ALIASES)?$)|((^|/)[A-Z]+\.md$)|(^(data/.*|images|pkg(/.+)?|cmd/openshift-install|terraform/providers)/(agent|alibabacloud|aws|azure|azurestack|baremetal|ibmcloud|libvirt|nutanix|openstack|ovirt|powervs|vsphere)/)
     spec:
       containers:
       - args:
@@ -4931,7 +4931,7 @@ presubmits:
           secretName: result-aggregator
     trigger: (?m)^/test( | .* )okd-scos-e2e-aws-ovn,?($|\s.*)
   - agent: kubernetes
-    always_run: false
+    always_run: true
     branches:
     - ^master$
     - ^master-
@@ -5569,94 +5569,6 @@ presubmits:
     - ^master$
     - ^master-
     cluster: build02
-    context: ci/prow/shellcheck
-    decorate: true
-    labels:
-      ci.openshift.io/manually-branched: "true"
-    name: pull-ci-openshift-installer-master-shellcheck
-    rerun_command: /test shellcheck
-    skip_if_only_changed: (^docs/)|((^|/)OWNERS(_ALIASES)?$)|((^|/)[A-Z]+\.md$)
-    spec:
-      containers:
-      - args:
-        - ./hack/shellcheck.sh
-        command:
-        - sh
-        env:
-        - name: IS_CONTAINER
-          value: "TRUE"
-        image: quay.io/coreos/shellcheck-alpine:v0.5.0
-        imagePullPolicy: Always
-        name: ""
-        resources:
-          requests:
-            cpu: 500m
-    trigger: (?m)^/test shellcheck
-  - agent: kubernetes
-    always_run: false
-    branches:
-    - ^master$
-    - ^master-
-    cluster: build02
-    context: ci/prow/tf-fmt
-    decorate: true
-    labels:
-      ci.openshift.io/manually-branched: "true"
-    name: pull-ci-openshift-installer-master-tf-fmt
-    optional: true
-    rerun_command: /test tf-fmt
-    skip_if_only_changed: (^docs/)|((^|/)OWNERS(_ALIASES)?$)|((^|/)[A-Z]+\.md$)
-    spec:
-      containers:
-      - args:
-        - ./hack/tf-fmt.sh
-        command:
-        - sh
-        env:
-        - name: IS_CONTAINER
-          value: "TRUE"
-        image: quay.io/coreos/terraform-alpine:v0.12.0-rc1
-        imagePullPolicy: Always
-        name: ""
-        resources:
-          requests:
-            cpu: 500m
-    trigger: (?m)^/test( | .* )tf-fmt,?($|\s.*)
-  - agent: kubernetes
-    always_run: false
-    branches:
-    - ^master$
-    - ^master-
-    cluster: build02
-    context: ci/prow/tf-lint
-    decorate: true
-    labels:
-      ci.openshift.io/manually-branched: "true"
-    name: pull-ci-openshift-installer-master-tf-lint
-    rerun_command: /test tf-lint
-    skip_if_only_changed: (^docs/)|((^|/)OWNERS(_ALIASES)?$)|((^|/)[A-Z]+\.md$)
-    spec:
-      containers:
-      - args:
-        - ./hack/tf-lint.sh
-        command:
-        - sh
-        env:
-        - name: IS_CONTAINER
-          value: "TRUE"
-        image: quay.io/coreos/tflint
-        imagePullPolicy: Always
-        name: ""
-        resources:
-          requests:
-            cpu: 500m
-    trigger: (?m)^/test tf-lint
-  - agent: kubernetes
-    always_run: false
-    branches:
-    - ^master$
-    - ^master-
-    cluster: build02
     context: ci/prow/unit
     decorate: true
     labels:
@@ -5794,32 +5706,3 @@ presubmits:
         secret:
           secretName: result-aggregator
     trigger: (?m)^/test( | .* )verify-vendor,?($|\s.*)
-  - agent: kubernetes
-    always_run: false
-    branches:
-    - ^master$
-    - ^master-
-    cluster: build02
-    context: ci/prow/yaml-lint
-    decorate: true
-    labels:
-      ci.openshift.io/manually-branched: "true"
-    name: pull-ci-openshift-installer-master-yaml-lint
-    rerun_command: /test yaml-lint
-    skip_if_only_changed: (^docs/)|((^|/)OWNERS(_ALIASES)?$)|((^|/)[A-Z]+\.md$)
-    spec:
-      containers:
-      - args:
-        - ./hack/yaml-lint.sh
-        command:
-        - sh
-        env:
-        - name: IS_CONTAINER
-          value: "TRUE"
-        image: quay.io/coreos/yamllint
-        imagePullPolicy: Always
-        name: ""
-        resources:
-          requests:
-            cpu: 500m
-    trigger: (?m)^/test yaml-lint
