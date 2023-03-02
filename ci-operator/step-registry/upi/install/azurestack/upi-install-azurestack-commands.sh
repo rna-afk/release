@@ -78,6 +78,7 @@ rm -f openshift/99_openshift-cluster-api_master-machines-*.yaml
 rm -f openshift/99_openshift-cluster-api_worker-machineset-*.yaml
 rm -f openshift/99_openshift-machine-api_master-control-plane-machine-set.yaml
 
+ls ${SHARED_DIR}/requests
 cp ${SHARED_DIR}/requests ./manifests
 cat >> manifests/cco-configmap.yaml <<EOF
 apiVersion: v1
@@ -108,7 +109,6 @@ del data["spec"]["publicZone"];
 open(path, "w").write(yaml.dump(data, default_flow_style=False))'
 
 INFRA_ID=$(python3 -c 'import yaml;data = yaml.full_load(open("manifests/cluster-infrastructure-02-config.yml"));print(data["status"]["infrastructureName"])')
-echo "${RESOURCE_GROUP}" > "${SHARED_DIR}/RESOURCE_GROUP_NAME"
 
 openshift-install create ignition-configs &
 

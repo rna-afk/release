@@ -74,3 +74,4 @@ stringData:
 EOF
 
 done
+echo "${RESOURCE_GROUP}" > "${SHARED_DIR}/RESOURCE_GROUP_NAME"
