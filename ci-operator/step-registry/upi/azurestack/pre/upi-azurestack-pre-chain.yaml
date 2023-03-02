@@ -4,6 +4,8 @@ chain:
   - ref: ipi-install-rbac
   - chain: ipi-conf-azurestack
   - ref: ipi-conf-azurestack-creds
+  - ref: ipi-conf-osimage-azure
+  - ref: ipi-conf-additional-ca-azurestack
   - ref: upi-install-azurestack
   - ref: ipi-install-times-collection
   documentation: >-
