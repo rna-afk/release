@@ -1561,7 +1561,7 @@ presubmits:
         - --lease-server-credentials-file=/etc/boskos/credentials
         - --report-credentials-file=/etc/report/credentials
         - --secret-dir=/secrets/ci-pull-credentials
-        - --secret-dir=/usr/local/e2e-azurestack-cluster-profile
+        - --secret-dir=/usr/local/installer-rehearse-azure-stack-cluster-profile
         - --target=e2e-azurestack
         command:
         - ci-operator
@@ -1578,7 +1578,7 @@ presubmits:
         - mountPath: /secrets/ci-pull-credentials
           name: ci-pull-credentials
           readOnly: true
-        - mountPath: /usr/local/e2e-azurestack-cluster-profile
+        - mountPath: /usr/local/installer-rehearse-azure-stack-cluster-profile
           name: cluster-profile
         - mountPath: /secrets/gcs
           name: gcs-credentials
@@ -1637,7 +1637,7 @@ presubmits:
         - --lease-server-credentials-file=/etc/boskos/credentials
         - --report-credentials-file=/etc/report/credentials
         - --secret-dir=/secrets/ci-pull-credentials
-        - --secret-dir=/usr/local/e2e-azurestack-upi-cluster-profile
+        - --secret-dir=/usr/local/installer-rehearse-azure-stack-cluster-profile
         - --target=e2e-azurestack-upi
         command:
         - ci-operator
@@ -1654,7 +1654,7 @@ presubmits:
         - mountPath: /secrets/ci-pull-credentials
           name: ci-pull-credentials
           readOnly: true
-        - mountPath: /usr/local/e2e-azurestack-upi-cluster-profile
+        - mountPath: /usr/local/installer-rehearse-azure-stack-cluster-profile
           name: cluster-profile
         - mountPath: /secrets/gcs
           name: gcs-credentials
