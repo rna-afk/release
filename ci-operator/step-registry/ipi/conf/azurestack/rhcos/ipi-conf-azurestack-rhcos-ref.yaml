@@ -12,11 +12,11 @@ ref:
     mount_path: /var/run/azurestack-cluster-secrets
   env:
   - name: RHCOS_VHD_RESOURCE_GROUP
-    default: "rhcos-storage-rg"
+    default: "rhcosvhd"
     documentation: |-
       The resource group of boot image vhd, the default value is for PPE3 environment.
   - name: RHCOS_VHD_STORAGE_ACCOUNT
-    default: "rhcosvhdsa"
+    default: "vhdsa"
     documentation: |-
       The storage aaccount of boot image vhd, the default value is for PPE3 environment.
   documentation: |-
