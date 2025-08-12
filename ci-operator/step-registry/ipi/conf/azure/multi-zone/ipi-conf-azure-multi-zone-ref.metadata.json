@@ -1,0 +1,15 @@
+{
+	"path": "ipi/conf/azure/multi-zone/ipi-conf-azure-multi-zone-ref.yaml",
+	"owners": {
+		"approvers": [
+			"patrickdillon",
+			"rna-afk",
+			"jhixson74"
+		],
+		"reviewers": [
+			"patrickdillon",
+			"rna-afk",
+			"jhixson74"
+		]
+	}
+}

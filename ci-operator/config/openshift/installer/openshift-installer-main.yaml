@@ -1464,6 +1464,24 @@ tests:
       OUTBOUND_TYPE: NATGatewaySingleZone
     workflow: openshift-e2e-azure
   timeout: 6h0m0s
+- always_run: false
+  as: e2e-azure-nat-gateway-multi-zone
+  steps:
+    cluster_profile: azure4
+    env:
+      OUTBOUND_TYPE: MultiZoneNatGateway
+    post:
+    - chain: gather-core-dump
+    - chain: ipi-azure-post
+    pre:
+    - chain: ipi-conf-azure
+    - ref: ipi-conf-azure-multi-zone
+    - chain: azure-provision-service-principal-minimal-permission
+    - chain: ipi-install
+    - ref: ipi-azure-rbac
+    test:
+    - ref: openshift-e2e-test
+  timeout: 6h0m0s
 - as: e2e-gcp-custom-endpoints
   optional: true
   run_if_changed: (gcp|google)
