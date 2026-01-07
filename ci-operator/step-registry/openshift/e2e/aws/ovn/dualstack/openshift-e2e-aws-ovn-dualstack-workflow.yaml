@@ -1,0 +1,20 @@
+workflow:
+  as: openshift-e2e-aws-ovn-dualstack
+  steps:
+    pre:
+    - chain: ipi-conf-aws
+    - ref: ipi-conf-aws-dualstack
+    - chain: ipi-install
+    test:
+    - ref: openshift-e2e-test
+    post:
+    - chain: gather-network
+    - chain: gather-core-dump
+    - chain: ipi-aws-post
+  documentation: |-
+    The Openshift E2E AWS OVN workflow executes the common end-to-end test suite in AWS
+    with the OVNKubernetes network plugin with dual-stack networking configured.
+
+    This workflow validates dual-stack networking support (IPv4 + IPv6) for AWS installations.
+    The test configures both IPv4 and IPv6 network stacks and validates that the cluster
+    functions properly with both IP families.

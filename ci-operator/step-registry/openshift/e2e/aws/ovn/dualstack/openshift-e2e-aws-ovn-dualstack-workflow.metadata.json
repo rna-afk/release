@@ -1,0 +1,21 @@
+{
+	"path": "openshift/e2e/aws/ovn/dualstack/openshift-e2e-aws-ovn-dualstack-workflow.yaml",
+	"owners": {
+		"approvers": [
+			"barbacbd",
+			"jhixson74",
+			"patrickdillon",
+			"rna-afk",
+			"sadasu",
+			"tthvo"
+		],
+		"reviewers": [
+			"barbacbd",
+			"jhixson74",
+			"patrickdillon",
+			"rna-afk",
+			"sadasu",
+			"tthvo"
+		]
+	}
+}

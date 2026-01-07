@@ -1,0 +1,17 @@
+ref:
+  as: ipi-conf-aws-dualstack
+  from: cli
+  commands: ipi-conf-aws-dualstack-commands.sh
+  resources:
+    requests:
+      cpu: 10m
+      memory: 100Mi
+  env:
+  - name: DUALSTACK_PRIMARY_IP_FAMILY
+    default: "ipv4"
+    documentation: |-
+      Create a new user and attach a policy with only the installer-needed permissions.
+  documentation: |-
+    The IPI AWS dualstack conf step adds the configuration for dual-stack networking to the install-config.yaml manifest for AWS installations.
+
+    This step configures both IPv4 and IPv6 network stacks for AWS clusters.
