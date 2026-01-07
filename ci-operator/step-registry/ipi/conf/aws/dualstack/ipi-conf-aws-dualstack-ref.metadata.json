@@ -1,0 +1,21 @@
+{
+	"path": "ipi/conf/aws/dualstack/ipi-conf-aws-dualstack-ref.yaml",
+	"owners": {
+		"approvers": [
+			"barbacbd",
+			"jhixson74",
+			"patrickdillon",
+			"rna-afk",
+			"sadasu",
+			"tthvo"
+		],
+		"reviewers": [
+			"barbacbd",
+			"jhixson74",
+			"patrickdillon",
+			"rna-afk",
+			"sadasu",
+			"tthvo"
+		]
+	}
+}
